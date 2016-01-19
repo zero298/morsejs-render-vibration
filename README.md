@@ -1,5 +1,6 @@
 # morsejs-render-svg
 
+[![npm version](https://img.shields.io/npm/v/morsejs-render-vibration.svg)](https://www.npmjs.com/package/morsejs-render-vibration)
 [![Build Status](https://travis-ci.org/zero298/morsejs-render-vibration.svg?branch=master)](https://travis-ci.org/zero298/morsejs-render-vibration)
 [![Inline docs](http://inch-ci.org/github/zero298/morsejs-render-vibration.svg?branch=master)](http://inch-ci.org/github/zero298/morsejs-render-vibration)
 
