@@ -5,6 +5,7 @@
 (function (root, factory) {
     "use strict";
 
+    /*istanbul ignore next*/
     if (typeof define === "function" && define.amd) {
         // AMD
         define(["morsejs"], factory);
@@ -37,7 +38,7 @@
      * @type {Number}
      * @default
      */
-    VIBRATE_SHORT = 200;
+    VIBRATE_SHORT = 500;
 
     /**
      * Time to vibrate for a long signal
@@ -46,7 +47,7 @@
      * @type {Number}
      * @default
      */
-    VIBRATE_LONG = 400;
+    VIBRATE_LONG = 1000;
 
     /**
      * Time to vibrate for a padding signal
@@ -71,10 +72,11 @@
      * @memberof module:morsejs-render-vibration
      * @param {Number[]} message The morse message to use
      * @returns {Number[]} An array of vibration timings
+     * @throws Will throw an error if message is malformed
      */
     function generateVibrationArray(message) {
         var vibrationArr = [];
-        message.forEach(function (signal) {
+        message.forEach(function (signal, index, arr) {
             switch (signal) {
             case morsejs.signal.SHORT:
                 vibrationArr.push(VIBRATE_SHORT);
@@ -83,13 +85,21 @@
                 vibrationArr.push(VIBRATE_LONG);
                 break;
             case morsejs.signal.PADD:
-                vibrationArr.push(VIBRATE_PADD);
+                // I can't think of an instance where a message should start with padding
+                if ((index - 1) < 0) {
+                    throw "Malformed message, should not start with padding";
+                }
+                // Make sure we didn't just add a vibration stop
+                if (arr[index - 1] !== morsejs.signal.PADD) {
+                    vibrationArr.push(VIBRATE_PADD);
+                }
                 break;
             default:
                 // Unknown signal
-                break;
+                throw "Malformed message, invalid signal in message";
             }
         });
+        // Send back our new array with vibration timings
         return vibrationArr;
     }
 

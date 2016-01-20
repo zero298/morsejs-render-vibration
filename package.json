@@ -1,6 +1,6 @@
 {
   "name": "morsejs-render-vibration",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Plugin to render morsejs output as a device vibration",
   "main": "src/morsejs-render-vibration",
   "scripts": {
@@ -29,7 +29,7 @@
     "test": "test"
   },
   "dependencies": {
-    "morsejs": "^0.0.4"
+    "morsejs": "^0.1.0"
   },
   "repository": {
     "type": "git",
